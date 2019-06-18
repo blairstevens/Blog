@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <title>image test Blog Post!</title>
+ <title>Lambda Functions</title>
  <!-- Latest compiled and minified CSS -->
  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
  <div class="container">
@@ -12,10 +12,209 @@
  <div class="container">
 <div class="row">
  <div class="col-md-8">
-  <h3>image test Blog Post!</h3>
-  <label>2019-06-13</label>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa. Cursus vitae congue mauris rhoncus. Pulvinar neque laoreet suspendisse interdum. Eu nisl nunc mi ipsum faucibus vitae. Sapien faucibus et molestie ac feugiat sed lectus vestibulum mattis. Nibh tortor id aliquet lectus proin nibh nisl. Sit amet venenatis urna cursus eget. Amet consectetur adipiscing elit duis. Quam pellentesque nec nam aliquam sem et tortor. Congue nisi vitae suscipit tellus.</p>
-<p><img alt="" src="images/mini.JPG"></p>
+  <h3>Lambda Functions</h3>
+  <label>2019-06-18</label>
+  <p>Lambda functions are an easy way to quickly define functions within Python. They are a departure from the regular def format for creating functions and can be confusing at first. Let’s begin with defining a simple square root function using the normal def syntax, and then converting it into a lambda function.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In this instance any time we call root it will return the square root of x.</p>
+<div class="highlight"><pre><span></span><span class="n">root</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>4.0
+</pre></div>
+
+
+<p>Now we are going to replicate root as lamroot, where lamroot is defined using lambda.</p>
+<div class="highlight"><pre><span></span><span class="n">lamroot</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Once again calling lamroot will return the square root of x.</p>
+<div class="highlight"><pre><span></span><span class="n">lamroot</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Lets piece apart what has gone on here.</p>
+<p>Lambda lets us define an outcome against a parameter with some sort of function, in this case x is the parameter, and NumPy’s square root function is being called against x to create the outcome. The split between the parameter and the function is the colon, everything before are parameters, everything after is the manipulations the function is making.</p>
+<p>We can define a lambda function with more than one parameter.</p>
+<div class="highlight"><pre><span></span><span class="n">lamroot2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Here we have given the function two parameters, x and y, and it will return the square root of the sum of the two parameters.</p>
+<div class="highlight"><pre><span></span><span class="n">lamroot2</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>4.0
+</pre></div>
+
+
+<p>From the structure we have laid out so far you are able to replace many functions throughout your code with lambda functions. There is a drawback to lambda functions in they do sacrifice some clarity in exchange for brevity. It is up to you to determine which is more useful in your situation.</p>
+<p>Lambda functions really come into there own when applied to collections of data, such as lists or pandas DataFrames. Instead of writing a loop to manipulate these sorts of collections we can instead write a map or apply statement against the collection to have every piece calculated at once.</p>
+<p>To demonstrate this I’m going to import pandas and spin up a quick DataFrame with the integers from 0 to 10.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">11</span><span class="p">))</span>
+
+<span class="n">df</span>
+</pre></div>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Now we rewrite the previous lamroot function within an apply function on the DataFrame.</p>
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.189207</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.316074</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.414214</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1.495349</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1.565085</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>1.626577</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.681793</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1.732051</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>1.778279</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Here we have applied the function against the entire DataFrame, viewing it now will show our integers have been turned into their square roots. This is very useful to write quick single line functions to cleanup or clarify a specific aspect of a dataset.</p>
  </div>
 </div>
  </div>
