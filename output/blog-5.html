@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>parse_it</title>
+ <!-- Latest compiled and minified CSS -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+ <div class="container">
+  <h1><a href="https://blairstevens.github.io/Blog">Blog</a></h1>
+ </div>
+</head>
+<body>
+ <div class="container">
+<div class="row">
+ <div class="col-md-8">
+  <h3>parse_it</h3>
+  <label>2019-08-07</label>
+  <p>Configuration files are either something you hardly ever use, or they're something you wrestle with. If you're in the former camp you should start using them to make your models distributable and secure, and consider parse_it to do it. If you're in the latter camp you're here to see what parse_it can do for you.<br/><br/>
+Let's start with a little example, bringing in os to build the environment and parse_it to read it.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;IMPORTANT_WORD&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ThIsIsAwOrD&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;SEVERAL_THINGS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;[&#39;the&#39;, &#39;last&#39;, &#39;one&#39;, &#39;will&#39;, &#39;be&#39;, &#39;a&#39;, &#39;number&#39;, &#39;42&#39;]&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ALSO_DICTIONARIES&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{&#39;oxford&#39;: &#39;webster&#39;}&quot;</span>
+</pre></div>
+
+
+<p>Now we have some random configuration stuff spun up. Let's peel them out using parse_it.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">parse_it</span> <span class="kn">import</span> <span class="n">ParseIt</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">ParseIt</span><span class="p">()</span>
+
+<span class="n">my_word</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">read_configuration_variable</span><span class="p">(</span><span class="s2">&quot;IMPORTANT_WORD&quot;</span><span class="p">)</span>
+<span class="n">my_word</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="s1">&#39;ThIsIsAwOrD&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">read_configuration_variable</span><span class="p">(</span><span class="s2">&quot;SEVERAL_THINGS&quot;</span><span class="p">)</span>
+<span class="n">my_list</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;last&#39;</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;will&#39;</span><span class="p">,</span> <span class="s1">&#39;be&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="mi">42</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">my_dict</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">read_configuration_variable</span><span class="p">(</span><span class="s2">&quot;ALSO_DICTIONARIES&quot;</span><span class="p">)</span>
+<span class="n">my_dict</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="err">{</span><span class="s1">&#39;oxford&#39;</span><span class="p">:</span> <span class="s1">&#39;webster&#39;</span><span class="err">}</span>
+</pre></div>
+
+
+<p>I realize at this point that those of you who do consistently use config files are note impressed at all with the local and spin up I've just done. And that is fair, it isn't very impressive. The fact of the matter is that showing well constructed config architectures would make for a lengthy and tutorial like blog. Even if I were to write that piece it would only scratch the surface on what the options are for architectures and formats.<br/><br/>
+This is where parse_it really shines. As long as the user you're distributing to can place a file within the designated folder you are set. Parse_it reads 13 different file types and apply their values within your script. This minimizes the formatting and filetype issues we are all used to. This isn't a new engine powering your configs, instead it's a new oil to make them run that much better, and I suggest you give it a try.</p>
+<div class="highlight"><pre><span></span>
+</pre></div>
+ </div>
+</div>
+ </div>
+</body>
+</html>
